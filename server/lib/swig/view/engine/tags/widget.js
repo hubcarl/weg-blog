@@ -48,7 +48,7 @@ exports.compile = function(compiler, args) {
 
     return (ignore ? '  try {\n' : '') +
         '_output += _swig._w(_ctx.fiswig, '+ file+',' + JSON.stringify(w_args) + ', {' +
-        'resolveFrom: "' + parentFile + '"' +
+        'resolveFrom: "' + parentFile + '"' +',config: _ctx.fiswig.config' +
         '})(' +
         ((onlyCtx && w) ? w : (!w ? '_ctx' : '_utils.extend({}, _ctx, ' + w + ')')) +
         ');\n' +

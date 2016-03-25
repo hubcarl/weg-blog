@@ -46,7 +46,7 @@ var SwigWrap = module.exports = function SwigWrap(options, layer) {
     var swig = this.swig = swigInstance = options.cache && swigInstance || new Swig(options);
     this.options = swig.options;
 
-    //console.log('>>>options1' + JSON.stringify(options));
+    console.log('>>>SwigWrap options1' + JSON.stringify(options));
     //console.log('>>>options2' + JSON.stringify(this.options));
 
     tags.forEach(function (tag) {
@@ -103,7 +103,7 @@ Swig.prototype._w = Swig.prototype._widget = function(layer, id, attr, options) 
     var self = this;
     var pathname = layer.resolve(id);
 
-    //console.log('----pathName:' +pathname + ' options:' + JSON.stringify(options));
+    console.log('----pathName:' +pathname + ' options:' + JSON.stringify(options));
     if (!layer.supportBigPipe() || !attr.mode || attr.mode === 'sync') {
         layer.load(id);
         return this.compileFile(pathname, options);

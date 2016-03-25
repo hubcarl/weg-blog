@@ -19,7 +19,7 @@ app.set('view engine', 'tpl');
 app.set('views', path.join(__dirname, '/client/views'));
 
 //设置自定义swig view引擎
-app.engine('.tpl', swigView.init({}, app));
+app.engine('.tpl', swigView.init({root: path.join(__dirname, '/client')}, app));
 
 
 //var swig = require('swig');
@@ -59,9 +59,10 @@ app.use(function(err, req, res, next) {
     });
 });
 
+var args = process.argv.join('|');
+var port = /\-\-port\|(\d+)(?:\||$)/.test(args) ? ~~RegExp.$1 : 9999;
 
-
-var server = app.listen(app.get('port')||9000, function() {
+var server = app.listen(port, function() {
     console.log('Express server listening on port ' + server.address().port);
 });
 

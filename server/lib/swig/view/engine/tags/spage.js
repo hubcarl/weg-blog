@@ -51,7 +51,7 @@ exports.compile = function(compiler, args) {
         'var w_args = ' + JSON.stringify(w_args) + ';' +
         'if (_ctx.isQuickingMode){w_args.mode="quickling"}' +
         '_output += _swig._w(_ctx.fiswig, '+ file+', w_args, {' +
-        'resolveFrom: "' + parentFile + '"' +
+        'resolveFrom: "' + parentFile + '"' +',config: _ctx.fiswig.config' +
         '})(' +
         ((onlyCtx && w) ? w : (!w ? '_ctx' : '_utils.extend({}, _ctx, ' + w + ')')) +
         ');\n' +

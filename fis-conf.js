@@ -1,133 +1,86 @@
-
-
-fis.config.merge({
-    statics: '/public',
-    namespace: '',
-
-    server: {
-        type: 'node',
-        rewrite: 'index.js',
-        clean: {
-            exclude: "controllers/*,config/config.json,config/development.json,locales/*,models/*,server.js"
-        }
-    },
-
-    modules: {
-
-        parser: {
-            less: 'less',
-            sass: 'sass',
-            scss: 'sass',
-            tmpl: 'bdtmpl',
-            po: 'po'
-        },
-
-        preprocessor: {
-            tpl: 'extlang'
-        },
-
-        postprocessor: {
-            tpl: 'require-async',
-            js: 'jswrapper, require-async'
-        }
-    },
-
-    roadmap: {
-        ext: {
-            less: 'css',
-            sass: 'css',
-            scss: 'css',
-            tmpl: 'js',
-            po: 'json'
-        },
-
-        path: [
-            {
-                reg: /^\/(node_modules)\/(.*)/i,
-                //release: '/$&'
-                release:false
-            },
-            {
-                reg: 'server.js',
-                useMap:false,
-                useHash: false,
-                useCompile: false
-            },
-
-            {
-                reg: /^\/server\/(.*)/i,
-                useMap: false,
-                useHash: false,
-                useCompile: false
-            },
-            {
-                reg: /^\/client\/views\/page\/(.+\.tpl)$/i,
-                isMod: true,
-                release: 'client/views/page/$1',
-                url: 'page/$1',
-                extras: {
-                    isPage: true
-                }
-            },
-            {
-                reg: /^\/client\/views\/page\/(.*\.(js|css))$/i,
-                isMod: true,
-                url: 'public/page/$1',
-                release: 'client/public/page/$1'
-            },
-            {
-                reg: /^\/client\/views\/widget\/(.*\.tpl)$/i,
-                isMod: true,
-                url: 'widget/$1',
-                release: 'client/views/widget/$1'
-            },
-
-            {
-                reg: /^\/client\/views\/widget\/(.*\.(js|css))$/i,
-                isMod: true,
-                useHash:true,
-                url: 'public/widget/$1',
-                release: 'client/public/widget/$1'
-            },
-            {
-                reg: /^\/client\/public\/component\/(.*)/i,
-                isMod:true,
-                url: 'public/component/$1',
-                release: 'client/public/component/$1'
-            },
-            {
-                reg: /^\/client\/public\/static\/(.*)/i,
-                url: 'public/static/$1',
-                release: 'client/public/static/$1'
-            },
-
-            {
-                reg: /^\/(test)\/(.*)/i,
-                isMod: false,
-                release: '/$1/$2'
-            },
-
-            {
-                reg: 'map.json',
-                release: 'client/map.json'
-            },
-            {
-                reg: "**.md",
-                release: false
-            },
-            {
-                reg: "**.iml",
-                release: false
-            }
-
-        ]
-    },
-
-    settings: {
-        postprocessor: {
-            jswrapper: {
-                type: 'amd'
-            }
-        }
-    }
-});
+//fis.set('project.ignore', ['output/**', 'node_modules/**', '.git/**', '.svn/**']);
+//
+//fis.hook('commonjs');
+//
+//fis.match('/{index,server,app}.js',{
+//    useMap:false,
+//    useHash: false,
+//    useCompile: false
+//});
+//
+//fis.match('/server/**.**',{
+//    useMap:false,
+//    useHash: false,
+//    useCompile: false
+//});
+//
+//
+//fis.match('/client/views/(**).{png,js,css}', {
+//    release: '/client/public/$1'
+//});
+//
+//fis.match('/client/**.{js,css,png,jpg}', {
+//    useHash: true
+//});
+//
+//// 公共静态资源
+//fis.match('/{client/public, client/views}/**.js', {
+//    isMod: true,
+//    // fis-optimizer-uglify-js 插件进行压缩，已内置
+//    optimizer: fis.plugin('uglify-js')
+//});
+//
+//fis.match('/client/public/static/js/mod.js', {
+//    isMod: false,
+//    wrap: false
+//});
+//
+//
+//fis.match('/{client/public, client/views}/**.css', {
+//    // fis-optimizer-clean-css 插件进行压缩，已内置
+//    optimizer: fis.plugin('clean-css')
+//});
+//
+//fis.match('/{client/public, client/views}/**.{png,jpg}', {
+//    // fis-optimizer-png-compressor 插件进行压缩，已内置
+//    optimizer: fis.plugin('png-compressor')
+//});
+//
+//
+//
+//
+//// 对 CSS 进行图片合并
+//fis.match('*.css', {
+//    // 给匹配到的文件分配属性 `useSprite`
+//    useSprite: true
+//});
+//
+//// 启用 fis-spriter-csssprites 插件
+//fis.match('::package', {
+//    spriter: fis.plugin('csssprites')
+//})
+//
+//fis.match('::package', {
+//    postpackager: fis.plugin('loader')
+//});
+//
+////fis.match('*', {
+////    deploy: fis.plugin('local-deliver', {
+////        to: '/Users/caoli/dev/study/fis/fis3-express-swig/dist'
+////    })
+////})
+//
+////上传测试服务器
+//fis.media('upload').match('*', {
+//    deploy: fis.plugin('http-push', {
+//        receiver: 'http://cq.01.p.p.baidu.com:8888/receiver.php',
+//        to: '/home/work/htdocs' // 注意这个是指的是测试机器的路径，而非本地机器
+//    })
+//});
+//
+//
+//fis.media('debug').match('*.{js,css,png}', {
+//    useHash: false,
+//    useSprite: false,
+//    optimizer: null
+//})

@@ -1,6 +1,6 @@
 <div class="navbar navbar-fixed-top navbar-smart smaller" role="navigation" id="theheader">
     <div class="container clearfix">
-        <div class="smart-header">
+        <div class="smart-header" style="display: none">
             <a class="logo" href="">
                 <span class="get">fis-express-swig</span>
             </a>

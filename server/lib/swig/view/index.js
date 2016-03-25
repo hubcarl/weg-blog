@@ -17,6 +17,7 @@ exports.init = function(settings, app) {
 
     settings.views = app.get('views');
 
+    // 加载engine的index.js
     Engine = utils.resolveEngine(settings.engine || 'engine');
 
     return function(filepath, locals, done) {
@@ -27,7 +28,6 @@ exports.init = function(settings, app) {
 
         // 创建一个新对象。
         var options = utils.mixin({}, settings);
-        //console.log('>>>>>settings:' + JSON.stringify(settings) );
 
         // 初始化 layer 层。
         // 提供 addScript, addStyle, resolve, addPagelet 各种接口。
@@ -36,9 +36,9 @@ exports.init = function(settings, app) {
 
         var sentData = false;
 
-        //console.log('>>>>>options:' + JSON.stringify(options) + ' prototols:' + JSON.stringify(prototols));
+        console.log('>>>>>options:' + JSON.stringify(options) + ' prototols:' + JSON.stringify(prototols));
 
-        //console.log('>>>engine local %o', locals);
+        console.log('>>>engine local %o', locals);
 
         new Engine(options, prototols)
 

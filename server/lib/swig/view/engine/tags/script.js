@@ -1,6 +1,13 @@
 var exports = module.exports;
 
 exports.compile = function(compiler, args, content, parents, options, blockName) {
+
+    var config = options.config||{};
+    console.log('script parents %o', parents);
+    console.log('script options %o', options);
+
+    console.log('[script] fisRootDir:' + config.fisRootDir  + ' projectDir:'+config.projectDir + ' viewsDir:' + config.viewsDir);
+
     var code = '_ctx.fiswig.addScript((function () { var _output = "";' +
         compiler(content, parents, options, blockName) +
         ' return _output; })());';

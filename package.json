@@ -1,7 +1,7 @@
 {
-  "name": "fis-express-swig",
+  "name": "weg-blog",
   "version": "0.0.1",
-  "description": "fis-express-swig",
+  "description": "weg-blog",
   "main":"server.js",
   "scripts": {
     "start": "node ./bin/www"
@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/hubcarl/fis-express-swig.git"
+    "url": "https://github.com/hubcarl/fweg-blog.git"
   },
   "bugs": {
-    "url": "https://github.com/hubcarl/fis-express-swig/issues"
+    "url": "https://github.com/hubcarl/weg-blog/issues"
   },
-  "homepage": "https://github.com/hubcarl/fis-express-swig",
+  "homepage": "https://github.com/hubcarl/weg-blog",
   "author": "sky",
   "license": "MIT"
 }

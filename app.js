@@ -5,9 +5,9 @@ var morgan = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var session = require('express-session');
-var resourceMap = require('./server/middleware/resource.js');
-var swigView = require('./server/lib/swig/view/index.js');
-var bigpipe = require('./server/lib/bigpipe/index.js');
+var resourceMap = require('weg-resource');
+var swigView = require('weg-swig');
+var bigpipe = require('weg-bigpipe');
 
 // 启动express
 var app = express();

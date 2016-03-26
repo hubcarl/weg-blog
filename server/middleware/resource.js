@@ -24,6 +24,7 @@ ResourceApi.prototype.getInfo = function(id, ignorePkg) {
 
     // resId:widget/pagelets/async/async.tpl
     var info;
+    console.log('getInfo[resId]0:' + id);
     if (id && this.maps || this.lazyload()) {
         var resId = id.replace(this.root + '/', "");
         console.log('getInfo[resId]1:' + resId);

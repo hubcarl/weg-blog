@@ -36,9 +36,9 @@ exports.init = function(settings, app) {
 
         var sentData = false;
 
-        console.log('>>>>>options:' + JSON.stringify(options) + ' prototols:' + JSON.stringify(prototols));
+        //console.log('>>>>>options:' + JSON.stringify(options) + ' prototols:' + JSON.stringify(prototols));
 
-        console.log('>>>engine local %o', locals);
+        //console.log('>>>engine local %o', locals);
 
         new Engine(options, prototols)
 

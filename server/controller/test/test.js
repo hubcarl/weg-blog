@@ -23,7 +23,6 @@ router.get('/', function (req, res) {
 
 
 router.get('/widget', function (req, res) {
-
     res.render('page/test/widget/widget.tpl', {});
 });
 

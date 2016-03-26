@@ -1,1 +1,1 @@
-console.log('async resource load..............');
+console.log('widget async.js resource load..............');

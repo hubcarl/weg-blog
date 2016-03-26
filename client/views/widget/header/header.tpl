@@ -7,7 +7,7 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">fiswig bigpipe demo</a>
+      <a class="navbar-brand" href="https://github.com/hubcarl/weg-blog.git" target='_blank'>weg-blog</a>
     </div>
     <div class="navbar-collapse collapse">
       <form class="navbar-form navbar-right" role="form">

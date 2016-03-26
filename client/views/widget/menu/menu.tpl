@@ -1,8 +1,8 @@
 <div class="navbar navbar-fixed-top navbar-smart smaller" role="navigation" id="theheader">
     <div class="container clearfix">
-        <div class="smart-header" style="display: none">
-            <a class="logo" href="">
-                <span class="get">fis-express-swig</span>
+        <div class="smart-header" style="display: ">
+            <a class="logo" href="https://github.com/hubcarl/weg-blog.git">
+                <span class="get">weg-blog</span>
             </a>
             <div class="navbar-collapse collapse pull-right smart-header-menu">
                 <ul class="smart-cate-nav">

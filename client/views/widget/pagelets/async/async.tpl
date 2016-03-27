@@ -1,5 +1,6 @@
-<h2>async 此类 widget 在输出时，也只会输出个壳子，但是内容在 body 输出完后，chunk 输出 js 自动填充。widget 将忽略顺序，谁先准备好，谁先输出。</h2>
-
+<h2>bigpipe async 使用说明 </h2>
+<h2>title:</h2>{{title}}
+<h2>content:</h2>{{content}}
 {% script %}
     require('./async.js');
 {% endscript %}

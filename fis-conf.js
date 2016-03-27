@@ -68,8 +68,8 @@ fis.match('/{client/public, client/views}/(**).png', {
 });
 
 
-fis.match('/client/public/static/js/mod.js', {
-    url:'/public/static/js/mod.js',
+fis.match('/client/public/framework/(**).js', {
+    url:'/public/framework/$1',
     isMod: false,
     wrap: false
 });

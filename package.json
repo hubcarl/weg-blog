@@ -18,7 +18,7 @@
     "caller": "0.0.1",
     "mysql": "2.10.0",
     "weg-swig": "0.0.2",
-    "weg-bigpipe": "0.0.1",
+    "weg-bigpipe": "0.0.2",
     "weg-resource": "0.0.1"
   },
   "devDependencies": {

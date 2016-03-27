@@ -13,15 +13,26 @@
         4.pipeline 与 async 基本相同，只是它会严格按顺序输出。
     </pre>
 
-    {% widget "widget/pagelets/async/async.tpl" mode="async" id="async"  %}
 
-    {% widget "widget/pagelets/quickling/quickling.tpl" mode="quickling" id="quickling" %}
+
+    <div id="container_quickling">
+        {% widget "widget/pagelets/quickling/quickling.tpl" mode="quickling" id="quickling" %}
+    </div>
+
 
     {% script %}
 
-        require('./widget.js');
+        BigPipe.load('quickling');
 
-        BigPipe.load('quicking');
+        <!--BigPipe.load({-->
+            <!--pagelets: ['quickling'],-->
+            <!--param: 'key=quickling',-->
+            <!--container:'container_quickling',-->
+            <!--cb: function() {-->
+                <!--console.log('pipe load done');-->
+            <!--}-->
+        <!--});-->
+
 
     {% endscript %}
 

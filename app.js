@@ -45,19 +45,19 @@ app.use(session({
 app.use(express.static(path.join(__dirname, '/client')));
 
 app.get('/',function(req,res){
-    res.redirect('/test/widget');
+    res.redirect('/test/quickling');
 });
 app.use('/test', require('./server/controller/test/test.js'));
 app.use('/news', require('./server/controller/news/index.js'));
 
 
-app.use(function(err, req, res, next) {
-    res.status(err.status || 500);
-    res.render('widget/error/error', {
-        message: err.message,
-        error: err.status
-    });
-});
+//app.use(function(err, req, res, next) {
+//    res.status(err.status || 500);
+//    res.render('widget/error/error', {
+//        message: err.message,
+//        error: err.status
+//    });
+//});
 
 var args = process.argv.join('|');
 var port = /\-\-port\|(\d+)(?:\||$)/.test(args) ? ~~RegExp.$1 : 9999;

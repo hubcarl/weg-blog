@@ -300,7 +300,7 @@
 
                 for(i = remaining - 1; i >= 0; i--) {
                     id = pagelets[i];
-                    args.push('pagelets[]=' + id);
+                    args.push('pagelets=' + id);
                     config[id] = {
                         container: obj.container && obj.container[id] ||
                             obj.container,

@@ -21,8 +21,7 @@ router.get('/', function (req, res) {
 });
 
 
-
-router.get('/widget', function (req, res) {
+router.get('/async', function (req, res) {
 
     //you can assign async data like this  the async content will be rendered in chunk mode
     res.bigpipe.bind('async', function(setter) {
@@ -38,7 +37,26 @@ router.get('/widget', function (req, res) {
         }, 2000);
     });
 
-    res.render('page/test/widget/widget.tpl', {});
+    res.render('page/test/async/async.tpl', {});
+});
+
+router.get('/quickling', function (req, res) {
+
+    //you can assign async data like this  the async content will be rendered in chunk mode
+    res.bigpipe.bind('quickling', function(setter) {
+
+        // simulate an async progress
+        setTimeout(function() {
+
+            // now set data to the pagelet
+            setter(null, {
+                title:'bigpipe quickling test',
+                content:'quicking 此类 widget 在输出时，只会输出个壳子，内容由用户自行决定通过 js，另起请求完成填充，包括静态资源加载'
+            });
+        }, 2000);
+    });
+
+    res.render('page/test/quickling/quickling.tpl', {});
 });
 
 module.exports = router;

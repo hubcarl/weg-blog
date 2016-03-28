@@ -60,7 +60,7 @@ weg release -w 文件修改监控
 weg release -m  资源文件md5签名 
 weg release --optimize --md5 --watch --pack # fis release -omwp
 weg release -omwp   o 资源压缩  m 资源文件md5签名  w 文件修改监控   p打包合并
-weg server start  --entry app.js --timeout 10000  --port 9000   --type node
+weg server start  --entry app.js 指定node启动入口文件
 ```
 
 ### page 目录
@@ -281,6 +281,30 @@ BigPipe.load({
 * off(type?, callback?)
 * once(type, callback)
 * trigger(type, args...?)
+
+### 服务器controller实现
+
+
+```javascript
+router.get('/async', function (req, res) {
+
+    //you can assign async data like this  the async content will be rendered in chunk mode
+    res.bigpipe.bind('async', function(setter) {
+
+        // simulate an async progress
+        setTimeout(function() {
+
+            // now set data to the pagelet
+            setter(null, {
+                title:'bigpipe async test',
+                content:'async 此类 widget 在输出时，也只会输出个壳子，但是内容在 body 输出完后，chunk 输出 js 自动填充。widget 将忽略顺序，谁先准备好，谁先输出。'
+            });
+        }, 2000);
+    });
+
+    res.render('page/test/async/async.tpl', {});
+});
+```
 
 ### fis-conf.js 
 

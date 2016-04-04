@@ -30,13 +30,14 @@
     </div>
 </div>
 
+{% style %}
+    @import url(../style/news.css?__inline);
+{% endstyle %}
 
-
-{% require "client/views/page/news/index/index.js" %}
 
 {% script %}
     console.log('>>>>test>>>>>');
-    require('client/views/page/news/index/index.js');
+    require('./index.js');
 {% endscript %}
 
 

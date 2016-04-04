@@ -1,6 +1,6 @@
 fis.set('project.ignore', ['output/**', 'node_modules/**', '.git/**', '.svn/**']);
 
-fis.hook('commonjs');
+fis.hook('commonjs',{});
 
 fis.match('/{index,server,app}.js',{
     useMap:false,
@@ -20,7 +20,8 @@ fis.match('/server/**.**',{
 fis.match('/client/views/(**).tpl', {
     useMap:true,
     url: '/$1',
-    preprocessor: fis.plugin('require')
+    //preprocessor: fis.plugin('require')
+    preprocessor: fis.plugin('extlang')
 });
 
 

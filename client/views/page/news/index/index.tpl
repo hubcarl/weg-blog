@@ -5,25 +5,10 @@
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-9">
             <ul class="smart-artiles" id="articleList">
-                {% for item in list %}
-                <li>
-                    <div class="point">+{{item.hits}}</div>
-                    <div class="card">
-                        <h2><a href="/detail/{{item.id}}" target="_blank">{{item.title}}</a></h2>
-                        <div>
-                            <ul class="actions">
-                                <li>
-                                    <time class="timeago">{{item.createDate}}</time>
-                                </li>
-                                <li class="tauthor">
-                                    <a href="#" target="_blank" class="get">Sky</a>
-                                </li>
-                                <li><a href="#" class="kblink-8007">+收藏</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </li>
-                {% endfor %}
+                {% pagelet "widget/news/index/index.tpl" mode="quickling" id="quickling" tag="none" %}
+                     <h2>test</h2>
+                    {% widget "widget/news/index/index.tpl" mode="quickling" id="quickling" %}
+                {% endpagelet %}
             </ul>
             <div id="pagerBottom" class="smart-pager"></div>
         </div>

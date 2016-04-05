@@ -171,7 +171,7 @@
                         document.getElementById(data.container) :
                         (data.container || document.getElementById(data.id));
 
-                dom.innerHTML = data.html;
+                dom.innerHTML += data.html;
 
                 onDomInserted();
             }
@@ -270,8 +270,8 @@
             load: function(pagelets) {
                 var args = [];
                 var currentPageUrl = location.href;
-                var obj, i, id, cb, remaining, search, url, param;
-
+                var obj, i, id, cb, remaining, search, param;
+                var url = pagelets.url;
                 // convert arguments.
                 // so we can accept
                 //
@@ -311,7 +311,11 @@
                 param = obj.param ? '&' + obj.param : '';
                 search = location.search;
                 search = search ? (search + '&') : '?';
-                url = search + args.join('&') + param;
+                if(url){
+                    url = (url.indexOf('?')==-1 ? '?' : '&') + args.join('&') + param;
+                }else{
+                    url = search + args.join('&') + param;
+                }
 
                 Util.ajax(url, function(res) {
 

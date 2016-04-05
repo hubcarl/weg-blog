@@ -45,7 +45,7 @@ app.use(session({
 app.use(express.static(path.join(__dirname, '/client')));
 
 app.get('/',function(req,res){
-    res.redirect('/test/quickling');
+    res.redirect('/news');
 });
 app.use('/test', require('./server/controller/test/test.js'));
 app.use('/news', require('./server/controller/news/index.js'));

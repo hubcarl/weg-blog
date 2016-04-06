@@ -14,12 +14,12 @@ function beforePageletRender(pagelet, locals) {
     fork = locals.resource = resource.fork();
     
     subpagelets = [];
-    origin = fork.addPagelet;
+    origin = fork.addQuicklingPagelet;
 
     // pagelet 中套 pagelet，在父 pagelet 渲染完后再开始子 pagelet.
     
     // 缓存起来。
-    fork.addPagelet = function() {
+    fork.addQuicklingPagelet = function() {
         subpagelets.push(arguments);
     };
 
@@ -30,7 +30,7 @@ function beforePageletRender(pagelet, locals) {
             origin.apply(fork, args);
         });
         
-        fork.addPagelet = origin;
+        fork.addQuicklingPagelet = origin;
         fork = locals = origin = subpagelets = pagelet = null;
     });
 
@@ -336,24 +336,25 @@ var createHanlder = module.exports = function(res, options) {
             return !!bigpipe;
         },
 
-        addPagelet: function() {
-            return bigpipe && bigpipe.addPagelet.apply(bigpipe, arguments);
+        addQuicklingPagelet: function() {
+
+            return bigpipe && bigpipe.addQuicklingPagelet.apply(bigpipe, arguments);
         },
 
-        addCustomPagelet: function() {
-            var locals = arguments[0];
-            var swig = arguments[1];
-            console.log('addCustomPagelet:', swig);
-            var obj = arguments[2];
-            obj.locals = locals;
-            if (!obj.compiled) {
-                obj.compiled = function () {
-                    console.log('---addCustomPagelet', obj.code);
-                    var fn = swig.compile(decodeURIComponent(obj.code), {resolveFrom:obj.resolveFrom});
-                    return fn.apply(this, arguments);
-                }
-            }
-            return bigpipe.addPagelet(obj);;
+        addPagelet: function(output) {
+
+            var obj ={
+                id:'quickling',
+                model:{},
+                container:'article',
+                output:output
+            };
+
+            return bigpipe && bigpipe.addPagelet(obj);
+        },
+
+        getPageletId: function(id) {
+            return id;
         },
 
         fork: function() {

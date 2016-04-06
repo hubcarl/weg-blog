@@ -55,8 +55,6 @@ var SwigWrap = module.exports = function SwigWrap(options, resource) {
         swig.setTag(tag, t.parse, t.compile, t.ends, t.blockLevel || false);
     });
 
-    resource.swig =swig;
-
     this.buzy = false;
 };
 
@@ -114,7 +112,7 @@ Swig.prototype._w = Swig.prototype._widget = function(resource, id, attr, option
     return function(locals) {
         var container = attr['container'] || attr['for'];
 
-        resource.addPagelet({
+        resource.addQuicklingPagelet({
             container: container,
             model: attr.model,
             id: attr.id,

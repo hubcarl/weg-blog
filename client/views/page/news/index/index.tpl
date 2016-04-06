@@ -1,11 +1,11 @@
 {% extends 'page/layout.tpl' %}
 
 {% block content %}
-<div class="container smart-container">
+<div class="container smart-container" style="visibility: hidden">
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-9">
             <ul class="smart-artiles" id="articleList">
-                {% pagelet "widget/news/index/index.tpl" mode="quickling" id="quickling" tag="none" %}
+                {% pagelet "widget/news/index/index.tpl" id="quickling" tag="section" %}
                     {% widget "widget/news/index/index.tpl" mode="quickling" id="quickling" %}
                 {% endpagelet %}
             </ul>

@@ -29,7 +29,7 @@ exports.init = function(settings, app) {
         // 创建一个新对象。
         var options = Utils.mixin({}, settings);
 
-        // 初始化 resource 层, 提供 addScript, addStyle, resolve, addPagelet 各种接口,用来扩展模板层能力
+        // 初始化 resource 层, 提供 addScript, addStyle, resolve, addQuicklingPagelet 各种接口,用来扩展模板层能力
         var resource = Resource(response, settings);
 
         // swig 模板绑定数据

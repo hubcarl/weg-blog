@@ -46,25 +46,39 @@ exports.compile = function(compiler, args, content, parents, options, blockName)
         if (w.k) w_args[w.k] = w.v||'';
     });
 
-    console.log('tag_pagelet',w_args);
-
     var code = compiler(content, parents, options, blockName);
 
-    console.log('>>pagelet-content:',content);
-    var output = '_ctx.resource.addCustomPagelet(_ctx, _swig, {container:"' + w_args.container
-        + '",id:"' + w_args.id
-        + '",model:"' + w_args.model
-        + '",mode:"' + w_args.mode
-        + '",resolveFrom:"' + parentFile
-        + '",code:"' + encodeURIComponent(code)
-        + '"});'
-        + code;
+    //var output = '{container:"' + w_args.container
+    //    + '",id:"' + w_args.id
+    //    + '",model:"' + w_args.model
+    //    + '",mode:"' + w_args.mode
+    //    + '",resolveFrom:"' + parentFile
+    //    + '",code:"' + code
+    //    + '"});';
 
-    if(w_args.tag == 'none'){
-        return '_output +=' + output + ';';
-    }else{
-        return '_output += "<div>";' + output + '"</div>";';
+
+    var id = '"' + w_args.id + '"';
+
+    var tag = '"' + w_args.tag + '"';
+
+    var code = '';
+
+    if (w_args.tag) {
+        code += ';_output+="<"+' + tag  + '+" data-pagelet=\\""+_ctx.resource.getPageletId(' + id + ')+"\\">";';
+    } else {
+        code += ';_output+="<!-- weg-pagelet["+_ctx.resource.getPageletId(' + id + ')+"] start -->";';
     }
+
+    code += '_output+=_ctx.resource.addPagelet((function(){var _output="";'
+        + compiler(content, parents, options, blockName) + ';return _output})());';
+
+    if (w_args.tag) {
+        code += '_output+="</"+' + tag + '+">";';
+    } else {
+        code += '_output+="<!-- weg-pagelet[" + _ctx.resource.getPageletId(' + id + ') + "] end -->";';
+    }
+
+    return code;
 };
 
 exports.parse = function(str, line, parser, types, stack, opts) {

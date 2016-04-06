@@ -55,7 +55,7 @@ exports.compile = function(compiler, args, content, parents, options, blockName)
         ((onlyCtx && w) ? w : (!w ? '_ctx' : '_utils.extend({}, _ctx, ' + w + ')')) +
         ');\n' +
         (ignore ? '} catch (e) {}\n' : '');
-    console.log('--tag widget:', result);
+    console.log('tags-widget:', result);
     return result;
 };
 

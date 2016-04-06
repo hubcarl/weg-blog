@@ -70,10 +70,15 @@ BigPipe.prototype.isQuickingMode = function() {
     return !!(this.quicklings && this.quicklings.length);
 };
 
-// 添加 pagelet.
-BigPipe.prototype.addPagelet = function(obj) {
+BigPipe.prototype.addPagelet = function(obj){
 
-    console.log('BigPipe.addPagelet params',obj);
+    return obj.output;
+}
+
+// 添加 pagelet.
+BigPipe.prototype.addQuicklingPagelet = function(obj) {
+
+    console.log('BigPipe.addQuicklingPagelet params',obj);
     // 已经晚了了，不处理。
     if (this.state === status.fulfilled) {
         return false;

@@ -6,7 +6,6 @@
         <div class="col-xs-12 col-sm-9">
             <ul class="smart-artiles" id="articleList">
                 {% pagelet "widget/news/index/index.tpl" mode="quickling" id="quickling" tag="none" %}
-                     <h2>test</h2>
                     {% widget "widget/news/index/index.tpl" mode="quickling" id="quickling" %}
                 {% endpagelet %}
             </ul>

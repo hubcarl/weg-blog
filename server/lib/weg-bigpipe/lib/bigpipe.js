@@ -35,10 +35,10 @@ BigPipe.options = {
     // - this.json          stringfied json data.
     tpl: {
         _default: '<script type="text/javascript">' +
-                        'BigPipe.onPageletArrive(<%= this.json %>);' +
+                        'Pagelet.onPageletArrive(<%= this.json %>);' +
                     '</script>',
 
-        quickling: 'BigPipe.onPageletArrive(<%= this.json %>);'
+        quickling: 'Pagelet.onPageletArrive(<%= this.json %>);'
     }
 };
 

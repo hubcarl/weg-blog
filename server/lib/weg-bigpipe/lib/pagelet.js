@@ -6,10 +6,11 @@ var Pagelet = module.exports = function Pagelet(obj) {
     this.model = obj.model;
     this.container = obj['container'] || obj['for'];
     this.mode = obj.mode;
+    this.append = obj.append || false;
     this.id = obj.id;
     this.locals = obj.locals;
     this.compiled = obj.compiled;
-    this.code = obj.code;
+    this.output = obj.output;
     this.state = status.pending;
     this.scripts = [];
     this.styles = [];
@@ -111,7 +112,9 @@ Pagelet.prototype._render = function(model) {
     this.emit('render:before', locals, fn);
     
     try {
+        console.log('pagelet_render:' , locals);
         output = fn(locals);
+        console.log('pagelet_render after:' , output);
     } catch (error) {
         return this.emit('error', error);
     }
@@ -223,6 +226,7 @@ Pagelet.prototype.toJson = function() {
         container: this.container || '',
         id: this.id,
         html: this.html,
+        append:this.append==='true',
         js: this.js,
         css: this.css,
         styles: this.styles,

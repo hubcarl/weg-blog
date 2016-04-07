@@ -1,7 +1,7 @@
 var ignore = 'ignore',
     missing = 'missing',
     only = 'only',
-    attrs = ["id", "mode", "group", "container", "model", "tag"];
+    attrs = ["id", "mode", "group", "container", "for", "model", "tag", "append"];
 
 /**
  * Includes a template partial in place. The template is rendered within the current locals variable context.
@@ -29,49 +29,51 @@ var ignore = 'ignore',
  * @param {literal}     [only]    Restricts to <strong>only</strong> passing the <code>with context</code> as local variables–the included template will not be aware of any other local variables in the parent template. For best performance, usage of this option is recommended if possible.
  * @param {literal}     [ignore missing] Will output empty string if not found instead of throwing an error.
  */
+
+function getAttr(value){
+    return value ? '"' + value + '"' : '';
+}
+
+
 exports.compile = function(compiler, args, content, parents, options, blockName) {
-    console.log('--pagelet content:', content,parents, options, blockName);
 
-    var file = args.shift(),
-        onlyIdx = args.indexOf(only),
-        onlyCtx = onlyIdx !== -1 ? args.splice(onlyIdx, 1) : false,
-        parentFile = (args.pop() || '').replace(/\\/g, '\\\\'),
-        ignore = args[args.length - 1] === missing ? (args.pop()) : false,
-        w = args.filter(function(o) {
-            return !o.k;
-        }).join(' '),
-        w_args = {};
-
-    //console.log('file:' + file  +  ' parentFile:' + parentFile);
-    args.map(function(w) {
-        if (w.k) w_args[w.k] = w.v||'';
-    });
-
-    //var output = '{container:"' + w_args.container
-    //    + '",id:"' + w_args.id
-    //    + '",model:"' + w_args.model
-    //    + '",mode:"' + w_args.mode
-    //    + '",resolveFrom:"' + parentFile
-    //    + '",code:"' + code
-    //    + '"});';
-
-
-    var id = '"' + w_args.id + '"';
-
-    var tag = '"' + w_args.tag + '"';
+    var attrs = {};
 
     var code = '';
 
-    if (w_args.tag) {
-        code += ';_output+="<"+' + tag  + '+" data-pagelet=\\""+_ctx.resource.getPageletId(' + id + ')+"\\">";';
+    args.forEach(function(arg) {
+        if (arg.key === 'id') {
+            attrs.id = arg.value;
+        } else if (arg.key === 'tag') {
+            if (/^['"]none['"]$/i.test(arg.value)) {
+                attrs.tag = false;
+            } else {
+                attrs.tag = arg.value;
+            }
+        }else {
+            attrs[arg.key] = arg.value;
+        }
+    });
+
+
+    console.log('--pagelet attrs:', attrs);
+
+
+    // 转换字符串
+    var id = getAttr(attrs.id);
+
+    var tag = getAttr(attrs.tag);
+
+    if (attrs.tag) {
+        code += ';_output+="<"+' + tag +'+" data-pagelet=\\""+_ctx.resource.getPageletId(' + id + ')+"\\">";';
     } else {
         code += ';_output+="<!-- weg-pagelet["+_ctx.resource.getPageletId(' + id + ')+"] start -->";';
     }
 
-    code += '_output+=_ctx.resource.addPagelet(_swig, _ctx, (function(){var _output="";'
+    code += '_output+=_ctx.resource.addPagelet(_swig, _ctx, ' + JSON.stringify(attrs) + ', (function(){var _output="";'
         + compiler(content, parents, options, blockName) + ';return _output})());';
 
-    if (w_args.tag) {
+    if (attrs.tag) {
         code += '_output+="</"+' + tag + '+">";';
     } else {
         code += '_output+="<!-- weg-pagelet[" + _ctx.resource.getPageletId(' + id + ') + "] end -->";';
@@ -81,73 +83,51 @@ exports.compile = function(compiler, args, content, parents, options, blockName)
 };
 
 exports.parse = function(str, line, parser, types, stack, opts) {
-    var file, w, k;
+
+    var key = '',
+        assign;
 
     parser.on(types.STRING, function(token) {
+        if (key && assign) {
+            var raw = token.match;
+            var val = raw.substring(1, raw.length - 1);
 
-        if (!file) {
-            file = token.match;
-            this.out.push(file);
-            return;
+            this.out.push({
+                key: key,
+                value: val,
+                raw: raw
+            });
+
+            key = assign = '';
         }
+    });
 
-        var out = {
-            v: '',
-            k: ''
-        };
-
-        if (~attrs.indexOf(k)) {
-            out.v = token.match.replace(/^("|')?(.*)\1$/g, '$2');
-            out.k = k;
-            this.out.push(out);
-            v = ''; //reset
+    parser.on(types.ASSIGNMENT, function(token) {
+        if (token.match === "=") {
+            assign = true;
         }
+    });
 
+    parser.on(types.NUMBER, function(token) {
+        var val = token.match;
+
+        if (val && /^\-/.test(val) && key) {
+            key += val;
+        }
+    });
+
+    parser.on(types.OPERATOR, function(token) {
+        var val = token.match;
+
+        if (val === '-' && key) {
+            key += val;
+        }
     });
 
     parser.on(types.VAR, function(token) {
-        if (!file) {
-            k = '';
-            file = token.match;
-            return true;
-        }
-
-        if (~attrs.indexOf(token.match)) {
-            k = token.match;
-            return false;
-        }
-
-        if (!w && token.match === 'with') {
-            w = true;
-            return;
-        }
-
-        if (w && token.match === only && this.prevToken.match !== 'with') {
-            this.out.push(token.match);
-            return;
-        }
-
-        if (token.match === ignore) {
-            return false;
-        }
-
-        if (token.match === missing) {
-            if (this.prevToken.match !== ignore) {
-                throw new Error('Unexpected token "' + missing + '" on line ' + line + '.');
-            }
-            this.out.push(token.match);
-            return false;
-        }
-
-        if (this.prevToken.match === ignore) {
-            throw new Error('Expected "' + missing + '" on line ' + line + ' but found "' + token.match + '".');
-        }
-
-        return true;
-    });
-
-    parser.on('end', function() {
-        this.out.push(opts.filename || null);
+        key += token.match;
+        assign = false;
+        return false;
     });
 
     return true;

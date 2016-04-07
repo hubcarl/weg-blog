@@ -10,22 +10,13 @@ pager.init(function (successCallback) {
     //    successCallback(responseText == '');
     //});
 
-    BigPipe.load({
+    Pagelet.load({
         url:'/news/' + pager.pageIndex + '/' + pager.pageSize,
-        pagelets: ['quickling'],
-        param: 'key=quickling',
+        pagelets: ['list'],
         container: 'articleList',
-        cb: function () {
+        callback: function () {
+            successCallback(false);
             console.log('pipe load done');
         }
     });
 });
-//BigPipe.load({
-//    url:'/news/' + pager.pageIndex + '/' + pager.pageSize,
-//    pagelets: ['quickling'],
-//    param: 'key=quickling',
-//    container: 'articleList',
-//    cb: function () {
-//        console.log('pipe load done');
-//    }
-//});

@@ -3,7 +3,6 @@
         var d = document;
         var head = d.getElementsByTagName('head')[0];
 
-        // get broswer info
         var browser = (function() {
             var ua = navigator.userAgent.toLowerCase();
             var match = /(webkit)[ \/]([\w.]+)/.exec(ua) ||
@@ -121,7 +120,7 @@
     })();
 
 
-    var BigPipe = function() {
+    var Pagelet = function() {
 
         // The order of render pagelet.
         // - load css
@@ -170,8 +169,11 @@
                 dom = data.container && typeof data.container === 'string' ?
                         document.getElementById(data.container) :
                         (data.container || document.getElementById(data.id));
-
-                dom.innerHTML = data.html;
+                if(data.append){
+                    dom.innerHTML += data.html;
+                }else{
+                    dom.innerHTML = data.html;
+                }
 
                 onDomInserted();
             }
@@ -216,17 +218,14 @@
         var d = document,
             config = {},
             count = 0,
-            pagelets = []; /* registered pagelets */
+            pagelets = [];
 
         return {
 
-            // This is method will be executed automaticlly.
-            //
-            // - after chunk output pagelet.
-            // - after async load quickling pagelet.
             onPageletArrive: function(obj) {
                 config[obj.id] && (obj = Util.mixin(obj, config[obj.id]));
 
+                console.log('onPageletArrive',obj);
                 var pagelet = PageLet(obj, function() {
                     var item;
 
@@ -242,36 +241,13 @@
                 pagelet.loadCss();
             },
 
-            // Async load quicking pagelet.
-            // An quickling pagelet rendered only after someone called the
-            // BigPipe.load('pageletId');
-            //
-            // BigPipe.load(pageleteIds);
-            // BigPipe.load({
-            //   pagelets: ['pageletA']
-            //   param: 'key=val&kay=vel'
-            //   container: dom or {
-            //      pageletA: dom,
-            //      pageletB: another dom
-            //   },
-            //   cb: function() {
-            //
-            //   }
-            // });
-            //
-            // params:
-            //   - pagelets       pagelet id or array of pagelet id.
-            //   - param          extra params for the ajax call.
-            //   - container      by default, the pagelet will be rendered in
-            //                    some document node with the same id. With this
-            //                    option the pagelet can be renndered in
-            //                    specified document node.
-            //   - cb             done callback.
+
             load: function(pagelets) {
+                console.log('pagelets', pagelets);
                 var args = [];
                 var currentPageUrl = location.href;
-                var obj, i, id, cb, remaining, search, url, param;
-
+                var obj, i, id, cb, remaining, search, param;
+                var url = pagelets.url;
                 // convert arguments.
                 // so we can accept
                 //
@@ -293,14 +269,14 @@
                 }
 
                 remaining = pagelets.length;
-                cb = obj.cb && function(pageletId) {
+                cb = obj.callback && function(pageletId) {
                     delete config[pageletId];
-                    --remaining || obj.cb();
+                    --remaining || obj.callback();
                 };
 
                 for(i = remaining - 1; i >= 0; i--) {
                     id = pagelets[i];
-                    args.push('pagelets[]=' + id);
+                    args.push('pagelets=' + id);
                     config[id] = {
                         container: obj.container && obj.container[id] ||
                             obj.container,
@@ -311,8 +287,12 @@
                 param = obj.param ? '&' + obj.param : '';
                 search = location.search;
                 search = search ? (search + '&') : '?';
-                url = search + args.join('&') + param;
-
+                if(url){
+                    url += (url.indexOf('?')==-1 ? '?' : '&') + args.join('&') + param;
+                }else{
+                    url = search + args.join('&') + param;
+                }
+                console.log('url:'+url);
                 Util.ajax(url, function(res) {
 
                     // if the page url has been moved.
@@ -326,5 +306,5 @@
         };
     }();
 
-    window.BigPipe = BigPipe;
+    window.Pagelet = Pagelet;
 })();

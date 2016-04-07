@@ -12,7 +12,7 @@
 {% require "public/static/css/normalize.css" %}
 {% require "public/static/css/bootstrap.css" %}
 {% require "public/static/css/app.css" %}
-{% require "public/framework/bigpipe.js" %}
+{% require "public/framework/pagelet.js" %}
 
 {% endhead %}
 

@@ -341,17 +341,16 @@ var createHanlder = module.exports = function(res, options) {
             return bigpipe && bigpipe.addQuicklingPagelet.apply(bigpipe, arguments);
         },
 
-        addPagelet: function(swig,locals, output) {
+        addPagelet: function(swig, locals, attrs, output) {
 
-            var obj ={
-                id:'quickling',
-                model:{},
-                container:'article',
+            console.log('>>>>>>addPagelet', typeof attrs, attrs, output);
+            var obj = Utils.mixin(attrs, {
                 output:output,
-                compiled: function(){
-                    return swig.render(locals, {});
+                locals:locals,
+                compiled: function(locals){
+                    return output;
                 }
-            };
+            });
 
             return bigpipe && bigpipe.addPagelet(obj);
         },
@@ -367,7 +366,7 @@ var createHanlder = module.exports = function(res, options) {
 
         getResourceMap: function() {
             var id, rMap, res, pkg;
-            console.log('>>>>getResourceMap:' + JSON.stringify(asyncs));
+            //console.log('>>>>getResourceMap:' + JSON.stringify(asyncs));
             for (id in asyncs) {
                 res = asyncs[id];
 

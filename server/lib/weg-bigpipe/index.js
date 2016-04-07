@@ -3,12 +3,12 @@ var BigPipe = require('./lib/bigpipe.js');
 module.exports = function( options ) {
 
     return function(req, res, next) {
-        console.log(' url:' + req.url);
+        //console.log(' url:' + req.url);
         var bigpipe = res.bigpipe = new BigPipe(options);
         //var pagelet = req.param('pagelet');
         var pagelets = req.param('pagelets');
         if(pagelets){
-            console.log(' pagelets:' + pagelets);
+            //console.log(' pagelets:' + pagelets);
             var destroy = function() {
                 res.removeListener('finish', destroy);
                 //res.removeListener('close', destroy);

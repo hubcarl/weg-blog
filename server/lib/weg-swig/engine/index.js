@@ -103,7 +103,7 @@ Swig.prototype._w = Swig.prototype._widget = function(resource, id, attr, option
     var self = this;
     var pathname = resource.resolve(id);
 
-    console.log('----pathName:' +pathname + ' options:' + JSON.stringify(options));
+    //console.log('----pathName:' +pathname + ' options:' + JSON.stringify(options));
     if (!resource.supportBigPipe() || !attr.mode || attr.mode === 'sync' ) {
         resource.load(id);
         return this.compileFile(pathname, options);

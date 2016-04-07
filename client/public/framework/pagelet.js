@@ -137,7 +137,7 @@
         //  - css             []
         //  - styles          []
         //  - scripts         []
-        //  - done            function
+        //  - callback            function
         // onDomInserted called when dom inserted.
         function PageLet(data, onDomInserted) {
             var remaining = 0;
@@ -192,8 +192,8 @@
                             Util.globalEval(data.scripts[i]);
                         }
                     }
-
-                    data.done && data.done(data.id);
+                    data.isEmpty = data.html && data.html.replace(/(^\s*)|(\s*$)/gm,"");
+                    data.callback && data.callback(data);
                 };
 
 
@@ -225,7 +225,7 @@
             onPageletArrive: function(obj) {
                 config[obj.id] && (obj = Util.mixin(obj, config[obj.id]));
 
-                console.log('onPageletArrive',obj);
+                //console.log('onPageletArrive',obj);
                 var pagelet = PageLet(obj, function() {
                     var item;
 
@@ -246,7 +246,7 @@
                 console.log('pagelets', pagelets);
                 var args = [];
                 var currentPageUrl = location.href;
-                var obj, i, id, cb, remaining, search, param;
+                var obj, i, id, callback, remaining, search, param;
                 var url = pagelets.url;
                 // convert arguments.
                 // so we can accept
@@ -269,18 +269,17 @@
                 }
 
                 remaining = pagelets.length;
-                cb = obj.callback && function(pageletId) {
-                    delete config[pageletId];
-                    --remaining || obj.callback();
+                callback = obj.callback && function(data) {
+                    delete config[data.id];
+                    --remaining || obj.callback(data);
                 };
 
                 for(i = remaining - 1; i >= 0; i--) {
                     id = pagelets[i];
                     args.push('pagelets=' + id);
                     config[id] = {
-                        container: obj.container && obj.container[id] ||
-                            obj.container,
-                        done: cb
+                        container: obj.container && obj.container[id] || obj.container,
+                        callback: callback
                     }
                 }
 

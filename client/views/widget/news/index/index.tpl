@@ -7,7 +7,7 @@
         <div>
             <ul class="actions">
                 <li>
-                    <time class="timeago">{{item.createDate}}</time>
+                    <time class="timeago">{{item.moduleName}}</time>
                 </li>
                 <li class="tauthor">
                     <a href="#" target="_blank" class="get">Sky</a>

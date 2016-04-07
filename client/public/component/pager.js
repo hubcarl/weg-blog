@@ -4,6 +4,8 @@
 
 function Pager(option){
 
+    var imageLoading = __uri('../static/images/loading.gif');
+
     var opt  = option ||{};
     this.isLoading = false;
     this.pageIndex = opt.pageIndex||1;
@@ -12,7 +14,7 @@ function Pager(option){
     this.pagerBottom = document.getElementById(opt.pagerBottomId||'pagerBottom');
     this.pagerLoadedHtml=opt.pagerLoadedHtml||"已全部加载完成";
     this.pagerBottom = document.getElementById(opt.pagerBottomId||'pagerBottom')||{};
-    this.pagerBottom.innerHTML= opt.pagerLoadingHtml||'<img src="public/static/images/loading.gif" />&nbsp;&nbsp;正在加载';
+    this.pagerBottom.innerHTML= opt.pagerLoadingHtml||'<img src="'+imageLoading+'" />&nbsp;&nbsp;正在加载';
 }
 
 

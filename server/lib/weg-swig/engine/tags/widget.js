@@ -54,7 +54,7 @@ exports.compile = function(compiler, args, content, parents, options, blockName)
         ((onlyCtx && w) ? w : (!w ? '_ctx' : '_utils.extend({}, _ctx, ' + w + ')')) +
         ');\n' +
         (ignore ? '} catch (e) {}\n' : '');
-    console.log('---order---tags-widget:', result);
+    //console.log('---order---tags-widget:', result);
     return result;
 };
 

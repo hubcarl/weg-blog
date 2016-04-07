@@ -1,6 +1,6 @@
 <div class="navbar navbar-fixed-top navbar-smart smaller" role="navigation" id="theheader">
     <div class="container clearfix">
-        <div class="smart-header" style="display: none">
+        <div class="smart-header" style="display: ">
             <a class="logo" href="https://github.com/hubcarl/weg-blog.git">
                 <span class="get">weg-blog</span>
             </a>

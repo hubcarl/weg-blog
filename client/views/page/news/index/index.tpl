@@ -5,7 +5,7 @@
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-9">
             <ul class="smart-artiles" id="articleList">
-                {% pagelet id="list" tag="section" append="true" %}
+                {% pagelet id="list" tag="none" append="true" %}
                     {% widget "widget/news/index/index.tpl" %}
                 {% endpagelet %}
             </ul>

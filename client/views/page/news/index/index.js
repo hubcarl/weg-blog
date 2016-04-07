@@ -14,8 +14,9 @@ pager.init(function (successCallback) {
         url:'/news/' + pager.pageIndex + '/' + pager.pageSize,
         pagelets: ['list'],
         container: 'articleList',
-        callback: function () {
-            successCallback(false);
+        callback: function (data) {
+            console.log(data);
+            successCallback(data);
             console.log('pipe load done');
         }
     });

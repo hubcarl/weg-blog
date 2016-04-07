@@ -45,7 +45,7 @@ exports.compile = function(compiler, args, content, parents, options, blockName)
         if (arg.key === 'id') {
             attrs.id = arg.value;
         } else if (arg.key === 'tag') {
-            if (/^['"]none['"]$/i.test(arg.value)) {
+            if (/^none$/i.test(arg.value)) {
                 attrs.tag = false;
             } else {
                 attrs.tag = arg.value;
@@ -56,7 +56,7 @@ exports.compile = function(compiler, args, content, parents, options, blockName)
     });
 
 
-    console.log('--pagelet attrs:', attrs);
+    //console.log('--pagelet attrs:', attrs);
 
 
     // 转换字符串

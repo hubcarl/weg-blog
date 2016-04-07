@@ -72,7 +72,30 @@ BigPipe.prototype.isQuickingMode = function() {
 
 BigPipe.prototype.addPagelet = function(obj){
 
-    return obj.output;
+    if(this.isQuickingMode()){
+        var self = this;
+
+        var pagelet = new Pagelet(obj);
+
+        this.pagelets.push(pagelet);
+        this.map[pagelet.id] = pagelet;
+        this.pipelines.push(pagelet);
+
+        // 转发事件。
+        pagelet.on('error', this.emit.bind(this, 'error'));
+        [
+            'before', 'after',
+            'render:before', 'render:after',
+            'analyse:before', 'analyse:after'
+        ].forEach(function(name) {
+            pagelet.on(name, self.emit.bind(self, 'pagelet:' + name, pagelet));
+        });
+
+        this.renderPagelet(pagelet);
+
+    }else{
+        return obj.output;
+    }
 }
 
 // 添加 pagelet.

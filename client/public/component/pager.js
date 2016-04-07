@@ -25,7 +25,7 @@ Pager.prototype.isScrollBottom = function(){
     var clientHeight = document.documentElement ? document.documentElement.clientHeight : document.documentElement.clientHeight;
     var scrollHeight = Math.max(document.body.scrollHeight, document.documentElement.scrollHeight);
 
-    console.log(+new Date() + '>>>scrollTop:' + scrollTop + "  clientHeight:" + clientHeight + " scrollHeight:" + scrollHeight);
+    //console.log(+new Date() + '>>>scrollTop:' + scrollTop + "  clientHeight:" + clientHeight + " scrollHeight:" + scrollHeight);
     return scrollTop + clientHeight + this.defaultBottomHeight > scrollHeight;
 }
 
@@ -53,7 +53,7 @@ Pager.prototype.init = function(loadData){
         if(!self.isLoading && self.isScrollBottom()){
             loadPageData();
         }else{
-            console.log('当前页正在加载pageIndex:' + self.pageIndex);
+            //console.log('当前页正在加载pageIndex:' + self.pageIndex);
         }
     }
 

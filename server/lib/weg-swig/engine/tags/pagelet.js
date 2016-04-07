@@ -30,7 +30,8 @@ var ignore = 'ignore',
  * @param {literal}     [ignore missing] Will output empty string if not found instead of throwing an error.
  */
 exports.compile = function(compiler, args, content, parents, options, blockName) {
-    //console.log(' args:' +JSON.stringify(args));
+    console.log('--pagelet content:', content,parents, options, blockName);
+
     var file = args.shift(),
         onlyIdx = args.indexOf(only),
         onlyCtx = onlyIdx !== -1 ? args.splice(onlyIdx, 1) : false,
@@ -45,8 +46,6 @@ exports.compile = function(compiler, args, content, parents, options, blockName)
     args.map(function(w) {
         if (w.k) w_args[w.k] = w.v||'';
     });
-
-    var code = compiler(content, parents, options, blockName);
 
     //var output = '{container:"' + w_args.container
     //    + '",id:"' + w_args.id
@@ -69,7 +68,7 @@ exports.compile = function(compiler, args, content, parents, options, blockName)
         code += ';_output+="<!-- weg-pagelet["+_ctx.resource.getPageletId(' + id + ')+"] start -->";';
     }
 
-    code += '_output+=_ctx.resource.addPagelet((function(){var _output="";'
+    code += '_output+=_ctx.resource.addPagelet(_swig, _ctx, (function(){var _output="";'
         + compiler(content, parents, options, blockName) + ';return _output})());';
 
     if (w_args.tag) {

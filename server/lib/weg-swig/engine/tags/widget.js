@@ -30,7 +30,6 @@ var ignore = 'ignore',
  * @param {literal}     [ignore missing] Will output empty string if not found instead of throwing an error.
  */
 exports.compile = function(compiler, args, content, parents, options, blockName) {
-    //console.log(' args:' +JSON.stringify(args));
     var file = args.shift(),
         onlyIdx = args.indexOf(only),
         onlyCtx = onlyIdx !== -1 ? args.splice(onlyIdx, 1) : false,
@@ -55,7 +54,7 @@ exports.compile = function(compiler, args, content, parents, options, blockName)
         ((onlyCtx && w) ? w : (!w ? '_ctx' : '_utils.extend({}, _ctx, ' + w + ')')) +
         ');\n' +
         (ignore ? '} catch (e) {}\n' : '');
-    console.log('tags-widget:', result);
+    console.log('---order---tags-widget:', result);
     return result;
 };
 

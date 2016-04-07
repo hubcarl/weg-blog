@@ -341,13 +341,16 @@ var createHanlder = module.exports = function(res, options) {
             return bigpipe && bigpipe.addQuicklingPagelet.apply(bigpipe, arguments);
         },
 
-        addPagelet: function(output) {
+        addPagelet: function(swig,locals, output) {
 
             var obj ={
                 id:'quickling',
                 model:{},
                 container:'article',
-                output:output
+                output:output,
+                compiled: function(){
+                    return swig.render(locals, {});
+                }
             };
 
             return bigpipe && bigpipe.addPagelet(obj);

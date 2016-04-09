@@ -1,4 +1,7 @@
 var express = require('express');
+var coexpress  =  require('coexpress');
+coexpress(express);
+
 var path = require('path');
 var favicon = require('static-favicon');
 var morgan = require('morgan');
@@ -9,8 +12,16 @@ var resourceMap = require('./server/lib/weg-resource');
 var swigView = require('./server/lib/weg-swig');
 var bigpipe = require('./server/lib/weg-bigpipe');
 
+var access = require('./server/middleware/access.js');
+var log4js = require("./server/utils/log4js.js");
+var logger = log4js.getLogger('debug');
+
 // 启动express
 var app = express();
+
+app.use(log4js.configure(__dirname));
+
+app.logger = logger;
 
 //设置视图模板的默认后缀名为tpl
 app.set('view engine', 'tpl');
@@ -21,17 +32,12 @@ app.set('views', path.join(__dirname, '/client/views'));
 //设置自定义swig view引擎
 app.engine('.tpl', swigView.init({root: path.join(__dirname, '/client')}, app));
 
-
-//var swig = require('swig');
-//var swigObj = new swig.Swig();
-//app.engine('.tpl', swigObj.renderFile);
-
 //初始化map资源依赖
 app.use(resourceMap({root: __dirname, prefix: 'client'}));
+app.use(access);
 //bigpipe
 app.use(bigpipe());
 app.use(favicon());
-app.use(morgan('combined'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
@@ -42,11 +48,32 @@ app.use(session({
     cookie: { maxAge: 60 * 1000 }
 }));
 
+
+app.use(function (req, res, next) {
+    //console.log(' app normal next');
+    next();
+})
+
+
+var router = express.Router();
+
+router.all('*', function *(req, res, next) {
+    //res.body.generatorYieldPromise = yield new Promise(function (resolve) {
+    //    setTimeout(function () {
+    //        console.log(5, Date.now());
+    //        resolve(true);
+    //    }, 500);
+    //});
+    next();
+});
+
+
 app.use(express.static(path.join(__dirname, '/client')));
 
 app.get('/',function(req,res){
     res.redirect('/news');
 });
+
 app.use('/test', require('./server/controller/test/test.js'));
 app.use('/news', require('./server/controller/news/index.js'));
 

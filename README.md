@@ -306,6 +306,11 @@ router.get('/async', function (req, res) {
 });
 ```
 
+### es6 generator yield
+
+http://www.alloyteam.com/2015/03/es6-generator-introduction/
+http://www.html-js.com/article/A-day-to-learn-JavaScript-to-replace-the-callback-function-with-ES6-Generator
+
 ### fis-conf.js 
 
 编译配置文件，详情请查看[配置 API](http://fis.baidu.com/docs/api/fis-conf.html)。

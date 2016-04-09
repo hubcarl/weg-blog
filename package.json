@@ -20,7 +20,8 @@
     "mysql": "2.10.0",
     "weg-swig": "0.0.3",
     "weg-bigpipe": "0.0.3",
-    "weg-resource": "0.0.1"
+    "weg-resource": "0.0.1",
+    "log4js":"0.6.33"
   },
   "repository": {
     "type": "git",

@@ -120,7 +120,7 @@ var createHanlder = module.exports = function(res, options) {
     // tpl模板目录
     var views = options.views;
 
-    console.log('--resource  views:' + JSON.stringify(views));
+    //console.log('--resource  views:' + JSON.stringify(views));
 
     var loaded = [];
 
@@ -343,7 +343,7 @@ var createHanlder = module.exports = function(res, options) {
 
         addPagelet: function(swig, locals, attrs, output) {
 
-            console.log('>>>>>>addPagelet', typeof attrs, attrs, output);
+            //console.log('>>>>>>addPagelet', typeof attrs, attrs, output);
             var obj = Utils.mixin(attrs, {
                 output:output,
                 locals:locals,
@@ -435,7 +435,7 @@ var createHanlder = module.exports = function(res, options) {
                 data.framework = framework;
             }
 
-            console.log('>>>>filterjs:'+ JSON.stringify(resourceMap||{}) );
+            //console.log('>>>>filterjs:'+ JSON.stringify(resourceMap||{}) );
             if(resourceMap){
                 data.sourceMap = JSON.stringify(resourceMap||{});
             }

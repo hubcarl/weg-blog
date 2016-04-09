@@ -112,9 +112,9 @@ Pagelet.prototype._render = function(model) {
     this.emit('render:before', locals, fn);
     
     try {
-        console.log('pagelet_render:' , locals);
+        //console.log('pagelet_render:' , locals);
         output = fn(locals);
-        console.log('pagelet_render after:' , output);
+        //console.log('pagelet_render after:' , output);
     } catch (error) {
         return this.emit('error', error);
     }

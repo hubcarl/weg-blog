@@ -1,4 +1,5 @@
 var mysql = require('mysql');
+var logger = require("log4js").getLogger('data');
 
 exports.getConnection = function () {
     console.log('>>>start conn.........');
@@ -17,13 +18,13 @@ exports.query = function (strSql, params) {
     return new Promise(function (resolve, reject) {
         var query = conn.query(strSql, params, function (err, rows, fields) {
             if (err) {
-                console.log('>>>mysql error:' + JSON.stringify(err));
+                logger.info('>>>mysql error:' + JSON.stringify(err));
                 reject(err);
             } else {
-                console.log('>>>result:' + JSON.stringify(rows));
+                logger.info('>>>mysql result:' + JSON.stringify(rows));
                 resolve(rows);
             }
-            console.log('>>>sql:' + query.sql);
+            logger.info('>>>mysql sql:' + query.sql);
             conn.end();
 
         });

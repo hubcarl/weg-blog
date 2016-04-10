@@ -3,18 +3,12 @@ var coexpress  =  require('coexpress');
 coexpress(express);
 
 var path = require('path');
-var favicon = require('static-favicon');
-var morgan = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var session = require('express-session');
-var resourceMap = require('./server/lib/weg-resource');
 var swigView = require('./server/lib/weg-swig');
-var bigpipe = require('./server/lib/weg-bigpipe');
-
-var access = require('./server/middleware/access.js');
 var log4js = require("./server/utils/log4js.js");
 var logger = log4js.getLogger('debug');
+
+
+var middleware = require("./server/utils/middleware.js");
 
 // 启动express
 var app = express();
@@ -32,21 +26,9 @@ app.set('views', path.join(__dirname, '/client/views'));
 //设置自定义swig view引擎
 app.engine('.tpl', swigView.init({root: path.join(__dirname, '/client')}, app));
 
-//初始化map资源依赖
-app.use(resourceMap({root: __dirname, prefix: 'client'}));
-app.use(access);
-//bigpipe
-app.use(bigpipe());
-app.use(favicon());
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
-app.use(cookieParser());
-app.use(session({
-    resave: true,
-    saveUninitialized: true,
-    secret: '123456',
-    cookie: { maxAge: 60 * 1000 }
-}));
+//注册中间件
+app.use(middleware(app, {root: __dirname}));
+
 
 
 app.use(function (req, res, next) {

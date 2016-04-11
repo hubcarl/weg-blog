@@ -45,7 +45,7 @@
 
 ```bash
 # 安装 fis 到全局
-npm install -g fis
+npm install -g weg
 
 # 下载工程.
 git clone https://github.com/hubcarl/weg-blog.git
@@ -57,9 +57,6 @@ cd weg-blog
 
 #工程运行
 weg release -w 文件修改监控
-weg release -m  资源文件md5签名 
-weg release --optimize --md5 --watch --pack # fis release -omwp
-weg release -omwp   o 资源压缩  m 资源文件md5签名  w 文件修改监控   p打包合并
 weg server start  --entry app.js 指定node启动入口文件
 ```
 

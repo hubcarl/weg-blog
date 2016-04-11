@@ -1,7 +1,10 @@
+/**
+ * Created by sky on 16/4/10.
+ * 根据middleware.json配置文件动态注册中间件,支持$开头的变量替换
+ */
 var fs = require("fs");
 var path = require("path");
 var caller = require('caller');
-
 
 module.exports = function (app, options) {
 

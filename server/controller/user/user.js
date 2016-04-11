@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../model/user');
-var Encrypt = require('../utils/encrypt');
+var User = require('../../model/user');
+var Encrypt = require('../../utils/encrypt');
 
 router.get('/login', function(req, res) {
   res.render('login');

@@ -1,10 +1,7 @@
 var express = require('express');
-var Article = require('../model/article');
+var Article = require('../../model/article');
 var router = express.Router();
-var ejs = require('ejs');
-ejs.filters.formatHtml = function(html) {
-  return html&&html.replace(/\r\n/gi, '<br/>') ;
-};
+
 
 router.param('id', function (req, res, next, id) {
 

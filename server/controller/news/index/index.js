@@ -1,5 +1,11 @@
+/** 
+ * index.js
+ * Description：文章列表路由
+ * Created by sky on 16/4/11
+ * Copyright (c) 2016 sky All Rights Reserved
+ */
 var express = require('express');
-var Article = require('../../model/article');
+var Article = require('../../../model/article');
 var router = express.Router();
 
 /* GET home page. */

@@ -54,6 +54,16 @@
       }
     },
 
+    "log4js": {
+      "enabled": true,
+      "module": {
+        "name": "log4js",
+        "path":"/server/utils/log4js.js",
+        "method":"configure",
+        "arguments": ["$root"]
+      }
+    },
+
     "json": {
       "enabled": true,
       "module": {

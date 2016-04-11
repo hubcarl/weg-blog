@@ -210,18 +210,18 @@ news/index/index.tpl
 - 要让 bigpipe 正常运行，需要前端引入 bigpipe.js, 另外 pagelet 为 quickling 模式，是不会自动加载的，需要用户主动去调用 BigPipe.load 方法，才会加载并渲染
 
 
-## BigPipe.js
+## 客户端 Pagelet.js
 
 对外暴露以下几个方法。
 
-### BigPipe.onPageletArrive
+### Pagelet.onPageletArrive
 
 此方法不需要主动去调用，当 pagelet 输出的时候会自动调用这个方法。不管是 `chunk` 输出的 `pagelet`, 还是靠第二次请求 `quickling` 类型的 `pagelet` 都是靠此方法渲染。
 
 示例：
 
 ```javascript
-BigPipe.onPageletArrive({"container":"pages-container","id":"spage","html":"contact us","js":[],"css":[],"styles":[],"scripts":[]});
+Pagelet.onPageletArrive({"container":"pages-container","id":"spage","html":"contact us","js":[],"css":[],"styles":[],"scripts":[]});
 ```
 
 格式说明 
@@ -234,18 +234,18 @@ BigPipe.onPageletArrive({"container":"pages-container","id":"spage","html":"cont
 * `styles` 内联 css 集合
 * `scripts` 内联 js 集合
 
-### BigPipe.load
+### Pagelet.load
 
 默认 `quickling` 性质的 `pagelet` 不会主动加载，需要用户主动调用此方法，才会开始加载。
 
 调用方式：
 
 ```javascript  
-BigPipe.load('pageletId');
+Pagelet.load('pageletId');
 
-BigPipe.load('pageletId1 pageletId2 pagelet Id3');
+Pagelet.load('pageletId1 pageletId2 pagelet Id3');
 
-BigPipe.load({
+Pagelet.load({
     pagelets: ['pageletId1', 'pageletId2']
     url: '/other page url',
     cacheID: 'pageletId1&pageletId2', // 设置后不会重复请求Pagelet
@@ -305,8 +305,8 @@ router.get('/async', function (req, res) {
 
 ### es6 generator yield
 
-http://www.alloyteam.com/2015/03/es6-generator-introduction/
-http://www.html-js.com/article/A-day-to-learn-JavaScript-to-replace-the-callback-function-with-ES6-Generator
+- http://www.alloyteam.com/2015/03/es6-generator-introduction/
+- http://www.html-js.com/article/A-day-to-learn-JavaScript-to-replace-the-callback-function-with-ES6-Generator
 
 ### fis-conf.js 
 

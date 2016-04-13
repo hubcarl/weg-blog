@@ -20,7 +20,7 @@
       "module": {
         "name": "weg-resource",
         "path":"/server/lib/weg-resource",
-        "arguments": [{"root": "$root", "prefix": "client"}]
+        "arguments": [{"www": "$www", "client": "client"}]
       }
     },
 
@@ -60,7 +60,7 @@
         "name": "log4js",
         "path":"/server/utils/log4js.js",
         "method":"configure",
-        "arguments": ["$root"]
+        "arguments": ["$www"]
       }
     },
 

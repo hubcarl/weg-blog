@@ -11,7 +11,7 @@ pager.init(function (successCallback) {
     //});
 
     Pagelet.load({
-        url:'/news/' + pager.pageIndex + '/' + pager.pageSize,
+        url:'/news/index/' + pager.pageIndex + '/' + pager.pageSize,
         pagelets: ['list'],
         container: 'articleList',
         callback: function (data) {

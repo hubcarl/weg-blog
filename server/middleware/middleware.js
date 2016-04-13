@@ -10,11 +10,11 @@ module.exports = function (app, options) {
 
     console.log(path.dirname(caller()));
 
-    var root = options.dir || path.resolve(path.dirname(caller()), 'server/config');
+    var www = options.dir || path.resolve(path.dirname(caller()), 'server/config');
 
     var fileName = options.fileName || "middleware.json";
 
-    var config = JSON.parse(fs.readFileSync(path.join(root, fileName), "utf8"));
+    var config = JSON.parse(fs.readFileSync(path.join(www, fileName), "utf8"));
 
     var makeArgument = function (args, options) {
 
@@ -55,7 +55,7 @@ module.exports = function (app, options) {
             var module = item.module;
             var method = module.method;
             var args = makeArgument(module.arguments, options);
-            var mkey = module.path ? path.join(options.root, module.path) : (module.name || key);
+            var mkey = module.path ? path.join(options.www, module.path) : (module.name || key);
             var middleware = require(mkey);
             if (method) {
                 app.use(middleware[method].apply(null, args))

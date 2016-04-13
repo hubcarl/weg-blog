@@ -33,6 +33,24 @@
       }
     },
 
+    "express-router-middleware":{
+      "enabled": false,
+      "module": {
+        "name": "express-router-middleware",
+        "path":"/server/lib/router",
+        "arguments": []
+      }
+    },
+
+    "express-use-middleware":{
+      "enabled": false,
+      "module": {
+        "name": "express-use-middleware",
+        "path":"/server/lib/middleware",
+        "arguments": []
+      }
+    },
+
     "favicon": {
       "enabled": true,
       "module": {

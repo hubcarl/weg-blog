@@ -61,6 +61,7 @@ var SwigWrap = module.exports = function SwigWrap(options, resource) {
 util.inherits(SwigWrap, Readable);
 
 SwigWrap.prototype._read = function(n) {
+    //console.log('swigwrap read' + this.view);
     if (!this.buzy && this.view) {
         this.renderFile(this.view, this.locals);
     }
@@ -77,20 +78,31 @@ SwigWrap.prototype.makeStream = function(view, locals) {
 // 最后在初始化 SwigWrap 的时候指定 view 已经 locals.
 // 此方法将会自动调用。
 SwigWrap.prototype.renderFile = function(view, options) {
+
     var self = this;
 
     if (this.buzy) return;
     this.buzy = true;
 
-    // support chunk
-    this.swig.renderFile(view, options, function(error, output) {
-        if (error) {
-            return self.emit('error', error);
-        }
+    console.log('swigwrap renderFile' + this.view);
 
+    if(options && options.layout){
+        var source = `{% extends 'layout/${options.layout}.tpl' %} {% block content %} {% require ${this.view} %} {% endblock %}`;
+        var fn = this.swig.compile(source, {filename: fakePath});
+        var output = fn(this.locals);
         self.push(output);
         self.push(null);
-    });
+    }else{
+        // support chunk
+        this.swig.renderFile(view, options, function(error, output) {
+            if (error) {
+                return self.emit('error', error);
+            }
+
+            self.push(output);
+            self.push(null);
+        });
+    }
 };
 
 SwigWrap.prototype.destroy = function() {

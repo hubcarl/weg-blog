@@ -4,7 +4,7 @@
         <div class="col-xs-12 col-sm-9">
             <ul class="smart-artiles" id="articleList">
                 {% pagelet id="list" tag="none" append="true" %}
-                    {% widget "widget/news/index/index.tpl" %}
+                    {% widget "widget/news/index/index.tpl" p1="111" p2="222" p3="333" width model %}
                 {% endpagelet %}
             </ul>
             <div id="pagerBottom" class="smart-pager"></div>

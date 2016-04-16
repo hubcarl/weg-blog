@@ -17,7 +17,7 @@ router.get('/', function* (req, res, next) {
   }
   var result = yield Article.query(1, 20);
 
-  res.render('page/news/index', {list: result});
+  res.render('page/news/index', {list: result, model:{total:100, visitCount:req.session.visitCount}});
 });
 
 
@@ -30,7 +30,7 @@ router.get('/:pageIndex/:pageSize', function* (req, res, next) {
 
   var result  = yield Article.query(pageIndex, pageSize)
 
-  res.render('page/news/index', {list: result});
+  res.render('page/news/index', {list: result, model:{total:100, visitCount:req.session.visitCount}});
 
 });
 

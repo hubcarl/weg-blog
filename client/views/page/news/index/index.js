@@ -1,6 +1,5 @@
 var Pager = require("client/public/component/pager.js");
 var XHR = require('client/public/component/xhr.js');
-console.log(Pager, XHR);
 
 var pager = new Pager({pageIndex: 2, defaultBottomHeight: 60});
 pager.init(function (successCallback) {
@@ -16,8 +15,9 @@ pager.init(function (successCallback) {
         container: 'articleList',
         callback: function (data) {
             console.log(data);
-            successCallback(data);
-            console.log('pipe load done');
+            successCallback(data.empty);
         }
     });
 });
+
+console.log('page js auto test');

@@ -192,7 +192,7 @@
                             Util.globalEval(data.scripts[i]);
                         }
                     }
-                    data.isEmpty = data.html && data.html.replace(/(^\s*)|(\s*$)/gm,"");
+                    data.empty = !(data.html && data.html.replace(/\r|\n|(^\s*)|(\s*$)/gm,"").length);
                     data.callback && data.callback(data);
                 };
 

@@ -18,3 +18,7 @@
     </div>
 </li>
 {% endfor %}
+
+{% script %}
+    require('./index.js');
+{% endscript %}

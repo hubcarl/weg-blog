@@ -1,6 +1,4 @@
-{% extends 'page/layout.tpl' %}
 
-{% block content %}
 <div class="container smart-container">
     <div class="row row-offcanvas row-offcanvas-right">
         <div class="col-xs-12 col-sm-9">
@@ -20,9 +18,6 @@
 
 
 {% script %}
-    console.log('>>>>test>>>>>');
     require('./index.js');
 {% endscript %}
 
-
-{% endblock %}

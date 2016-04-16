@@ -1,0 +1,1 @@
+console.log('widget js load test');

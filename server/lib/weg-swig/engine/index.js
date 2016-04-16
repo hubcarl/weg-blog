@@ -3,6 +3,7 @@
  */
 var Readable = require('stream').Readable;
 var util = require('util');
+var fs = require('fs');
 var Swig = require('swig').Swig;
 var loader = require('./lib/loader.js');
 var tags  = [
@@ -37,35 +38,27 @@ var SwigWrap = module.exports = function SwigWrap(options, resource) {
 
     //console.log('>>>options0' + JSON.stringify(options));
 
-    if (!(this instanceof SwigWrap)) {
+    var self = this;
+
+    if (!(self instanceof SwigWrap)) {
         return new SwigWrap(options, resource);
     }
 
     // 重写 loader, 让模板引擎，可以识别静态资源标示。如：static/lib/jquery.js
     options.loader = options.loader || loader(resource, options.views);
 
-    var swig = this.swig = swigInstance = options.cache && swigInstance || new Swig(options);
-    this.options = swig.options;
-
-    //console.log('>>>SwigWrap options1' + JSON.stringify(options));
-    //console.log('>>>options2' + JSON.stringify(this.options));
+    self.swig = swigInstance = options.cache && swigInstance || new Swig(options);
 
     tags.forEach(function (tag) {
         var t = require('./tags/' + tag);
-        swig.setTag(tag, t.parse, t.compile, t.ends, t.blockLevel || false);
+        self.swig.setTag(tag, t.parse, t.compile, t.ends, t.blockLevel || false);
     });
 
-    this.buzy = false;
+    self.buzy = false;
 };
 
 util.inherits(SwigWrap, Readable);
 
-SwigWrap.prototype._read = function(n) {
-    //console.log('swigwrap read' + this.view);
-    if (!this.buzy && this.view) {
-        this.renderFile(this.view, this.locals);
-    }
-};
 
 SwigWrap.prototype.makeStream = function(view, locals) {
     Readable.call(this, null);
@@ -74,27 +67,41 @@ SwigWrap.prototype.makeStream = function(view, locals) {
     return this;
 };
 
-// 不推荐直接调用
-// 最后在初始化 SwigWrap 的时候指定 view 已经 locals.
-// 此方法将会自动调用。
-SwigWrap.prototype.renderFile = function(view, options) {
+SwigWrap.prototype.readFile = function(filePath) {
+
+};
+
+//Readable pipe自动调用调用_read方法
+SwigWrap.prototype._read = function(n) {
+    //console.log('swigwrap read' + this.view);
+    if (!this.buzy && this.view) {
+        this.renderFile(this.view, this.locals);
+    }
+};
+
+
+SwigWrap.prototype.renderFile = function(view, locals) {
+
 
     var self = this;
 
-    if (this.buzy) return;
-    this.buzy = true;
+    if (self.buzy) return;
+    self.buzy = true;
 
-    console.log('swigwrap renderFile' + this.view);
 
-    if(options && options.layout){
-        var source = `{% extends 'layout/${options.layout}.tpl' %} {% block content %} {% require ${this.view} %} {% endblock %}`;
-        var fn = this.swig.compile(source, {filename: fakePath});
-        var output = fn(this.locals);
+    if(self.swig.options && self.swig.options.layout){
+
+        self.swig.options.filename = view;
+        //加载资源引用资源
+        var content = self.swig.options.loader.load(view);
+        var source = `{% extends 'page/${self.swig.options.layout}.tpl' %} {% block content %} ${content} {% endblock %}`;
+        var fn = self.swig.compile(source, self.swig.options);
+        var output = fn(locals);
         self.push(output);
         self.push(null);
     }else{
         // support chunk
-        this.swig.renderFile(view, options, function(error, output) {
+        self.swig.renderFile(view, locals, function(error, output) {
             if (error) {
                 return self.emit('error', error);
             }

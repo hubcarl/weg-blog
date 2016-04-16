@@ -35,7 +35,7 @@ module.exports = function(www, template){
     app.set('views', path.join(www, path.join(template.client , 'views')));
 
     //设置自定义swig view引擎
-    app.engine('.' + (template.ext || 'tpl'), swig.init({www: www, layout:'layout'}, app));
+    app.engine('.' + (template.ext || 'tpl'), swig.init({www: www, layout: template.layout || 'layout'}, app));
 
     //静态目录
     app.use(express.static(path.join(www, template.client)));

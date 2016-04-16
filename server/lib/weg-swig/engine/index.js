@@ -88,27 +88,26 @@ SwigWrap.prototype.renderFile = function(view, locals) {
     if (self.buzy) return;
     self.buzy = true;
 
+    var layout = (typeof locals.layout  =='string' && locals.layout) || self.swig.options && self.swig.options.layout;
 
-    if(self.swig.options && self.swig.options.layout){
-
-        self.swig.options.filename = view;
-        //加载资源引用资源
-        var content = self.swig.options.loader.load(view);
-        var source = `{% extends 'page/${self.swig.options.layout}.tpl' %} {% block content %} ${content} {% endblock %}`;
-        var fn = self.swig.compile(source, self.swig.options);
-        var output = fn(locals);
-        self.push(output);
-        self.push(null);
-    }else{
-        // support chunk
+    // 如果设置不用 layout 或者 layout没有定义, 直接renderFile
+    if (locals.layout === false || locals.layout === '' || !layout) {
         self.swig.renderFile(view, locals, function(error, output) {
             if (error) {
                 return self.emit('error', error);
             }
-
             self.push(output);
             self.push(null);
         });
+    }else{
+        self.swig.options.filename = view;
+        //加载资源引用资源
+        var content = self.swig.options.loader.load(view);
+        var source = `{% extends 'page/${layout}.tpl' %} {% block content %} ${content} {% endblock %}`;
+        var fn = self.swig.compile(source, self.swig.options);
+        var output = fn(locals);
+        self.push(output);
+        self.push(null);
     }
 };
 

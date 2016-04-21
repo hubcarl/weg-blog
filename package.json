@@ -1,6 +1,6 @@
 {
   "name": "weg-blog",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "weg-blog",
   "main": "server.js",
   "scripts": {
@@ -21,6 +21,8 @@
     "weg-swig": "latest",
     "weg-bigpipe": "latest",
     "weg-resource": "latest",
+    "express-use-middleware": "latest",
+    "express-router-middleware": "latest",
     "log4js":"0.6.33"
   },
   "repository": {

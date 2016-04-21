@@ -9,7 +9,6 @@
       "enabled": false,
       "module": {
         "name": "weg-swig",
-        "path":"/server/lib/weg-swig",
         "method":"init",
         "arguments": []
       }
@@ -19,7 +18,6 @@
       "enabled": true,
       "module": {
         "name": "weg-resource",
-        "path":"/server/lib/weg-resource",
         "arguments": [{"www": "$www", "client": "client"}]
       }
     },
@@ -28,7 +26,6 @@
       "enabled": true,
       "module": {
         "name": "weg-bigpipe",
-        "path":"/server/lib/weg-bigpipe",
         "arguments": []
       }
     },
@@ -37,7 +34,6 @@
       "enabled": false,
       "module": {
         "name": "express-router-middleware",
-        "path":"/server/lib/router",
         "arguments": []
       }
     },
@@ -46,7 +42,6 @@
       "enabled": false,
       "module": {
         "name": "express-use-middleware",
-        "path":"/server/lib/middleware",
         "arguments": []
       }
     },

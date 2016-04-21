@@ -30,6 +30,22 @@
       }
     },
 
+    "express-router-middleware":{
+      "enabled": false,
+      "module": {
+        "name": "express-router-middleware",
+        "arguments": []
+      }
+    },
+
+    "express-use-middleware":{
+      "enabled": false,
+      "module": {
+        "name": "express-use-middleware",
+        "arguments": []
+      }
+    },
+
     "favicon": {
       "enabled": true,
       "module": {

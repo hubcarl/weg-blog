@@ -7,7 +7,7 @@
 
 var express = require('express');
 var coexpress  =  require('coexpress');
-var swig = require('../lib/weg-swig');
+var swig = require('weg-swig');
 var path = require('path');
 
 // 支持es6 yield语法,解决异步回调问题

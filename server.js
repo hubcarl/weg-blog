@@ -2,8 +2,8 @@
 var path = require('path');
 
 var engine = require("./server/middleware/engine.js");
-var middleware = require("./server/middleware/middleware.js");
-var router = require("./server/middleware/router.js");
+var router = require("express-router-middleware");
+var middleware = require("express-use-middleware");
 
 // 启动express
 var app = engine(__dirname);

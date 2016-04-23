@@ -3,13 +3,13 @@ var path = require('path');
 
 var engine = require("./server/middleware/engine.js");
 var router = require("express-router-middleware");
-var middleware = require("express-use-middleware");
+var middleware = require("./server/middleware/middleware");
 
 // 启动express
 var app = engine(__dirname);
 
 //注册中间件
-app.use(middleware(app, {www: __dirname}));
+app.use(middleware(app));
 
 //初始化路由
 app.use(router(app));

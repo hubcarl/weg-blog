@@ -40,6 +40,8 @@ module.exports = function(www, template){
     //静态目录
     app.use(express.static(path.join(www, template.client)));
 
+    app.set('www', www);
+
     return app;
 
 }
